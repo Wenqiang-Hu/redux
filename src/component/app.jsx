@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-
+import Number from './number';
+import String from './string';
                 
 class App extends Component {
     state = {  } 
     render() { 
         return (
-            <h1>hello</h1>
+            <React.Fragment>
+                <Number />
+                <hr/>
+                <String />
+            </React.Fragment>
         );
     }
 }

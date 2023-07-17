@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./component/app";
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
+import { Provider } from "react-redux";
 
 // define reducer
 const f1 = (state = 0, action) => {
@@ -17,7 +18,7 @@ const f1 = (state = 0, action) => {
     }
 };
 
-const f2 = (state = "", action) => {
+const f2 = (state = ": ", action) => {
     switch (action.type) {
         case "concat":
             return state + action.char;
@@ -36,8 +37,8 @@ const f2 = (state = "", action) => {
 
 // use package
 const f3 = combineReducers({
-    f1: f1,
-    f2: f2,
+    number: f1,
+    string: f2,
 });
 
 // store
@@ -48,10 +49,14 @@ const store = configureStore({
 // need to declare subscribe first then dispatch will be effected
 store.subscribe(() => console.log(store.getState()));
 
-store.dispatch({ type: "add", value: 3 });
-store.dispatch({ type: "concat", char: "will" });
-store.dispatch({ type: "add", value: 3 });
-store.dispatch({ type: "sub", value: 3 });
+// store.dispatch({ type: "add", value: 3 });
+// store.dispatch({ type: "concat", char: "will" });
+// store.dispatch({ type: "add", value: 3 });
+// store.dispatch({ type: "sub", value: 3 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+    <Provider store={store}>
+        <App />
+    </Provider>
+);
