@@ -17,16 +17,31 @@ const f1 = (state = 0, action) => {
     }
 };
 
+const f2 = (state = "", action) => {
+  switch (action.type) {
+    case "concat":
+      return state + action.char;
+    default:
+      return state;
+  }
+}
+
+const f3 = (state = {}, action) => {
+  return {
+    f1: f1(state.f1, action),
+    f2: f2(state.f2, action)
+  }
+}
 // store 
 const store = configureStore({
-    reducer: f1,
+    reducer: f3,
 });
 
 // need to declare subscribe first then dispatch will be effected
 store.subscribe(() => console.log(store.getState()));
 
 store.dispatch({type: "add", value: 3});
-store.dispatch({type: "add", value: 3});
+store.dispatch({type: "concat", char: 'will'});
 store.dispatch({type: "add", value: 3});
 store.dispatch({type: "sub", value: 3});
 
